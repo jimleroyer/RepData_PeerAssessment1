@@ -1,8 +1,10 @@
 ---
-title: "Steps Activity"
+title: "Reproducible Research: Peer Assessment 1"
 author: "Jimmy Royer"
+output: 
+  html_document:
+    keep_md: true
 date: "10/7/2018"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -27,7 +29,7 @@ table.table-data td
 }
 ```
 
-# Loading and Processing
+## Loading and preprocessing the data
 
 Let's clean the data a bit. A `time` column will be created out of the `date` and `interval` 
 columns with a `Date` type. 
@@ -60,7 +62,7 @@ activities <- transform(activities, steps_fz = ifelse(is.na(activities$steps), 0
 activities <- activities[c('steps', 'steps_fz', 'date', 'interval', 'time')]
 ```
 
-# What is mean total number of steps taken per day?
+## What is mean total number of steps taken per day?
 
 The exercise notes ask us to do an histogram but for the *taken steps per day* graph, it's 
 just so much easier and beautiful to use a ggplot bar plot, preceded with a grouping operation 
@@ -109,7 +111,7 @@ ggplot(act_agg, aes(x=date, y = total_steps)) +
 **Last, the mean of daily steps is `r round(mean(act_agg$total_steps), 2)` and the median is 
 `r round(median(act_agg$total_steps), 2)`.**
 
-# What is the average daily activity pattern?
+## What is the average daily activity pattern?
 
 #### Make a time series plot (i.e. \color{red}{\verb|type = "l"|}type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis) / Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -138,7 +140,7 @@ ggplot(act_int, aes(date, total_avg)) +
 
 ```
 
-# Imputing missing values
+## Imputing missing values
 
 #### Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
@@ -201,7 +203,7 @@ ggplot(act_agg_filled, aes(x=date, y = total_steps)) +
 
 Hence there is no impact on the mean and median compared to previous result. The main reason is most probably the used strategy for filling in missing values. Manual observations of the data showed that when data were missing, it was for complete whole days rather than a few events per day. Hence the strategy to take the daily average to fill in missing data does not make sense. An improvement would be to fill in with data of average interval for that same time! 
 
-# Are there differences in activity patterns between weekdays and weekends?
+## Are there differences in activity patterns between weekdays and weekends?
 
 #### Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
