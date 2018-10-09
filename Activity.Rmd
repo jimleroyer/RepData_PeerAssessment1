@@ -123,7 +123,6 @@ act_int <- activities %>%
     total_avg = mean(steps)
   )
 
-
 act_int_max <- round(max(act_int$total_avg), 0)
 act_int_max_date <- act_int$date[which.max(act_int$total_avg)]
 act_int_max_date_str <- as.character(act_int_max_date)
